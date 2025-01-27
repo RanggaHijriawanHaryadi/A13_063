@@ -32,3 +32,25 @@ object DestinasiUpdatePstr: DestinasiNavigasi {
     const val Id_Peserta = "id"
     val routesWithArg = "$route/{$Id_Peserta}"
 }
+
+// Halaman Home Event
+object DestinasiHomeEvnt: DestinasiNavigasi {
+    override val route = "Event"
+    override val titleRes = "Halaman Event"
+}
+object DestinasiInsertEvnt: DestinasiNavigasi{
+    override val route = "Insert event"
+    override val titleRes = "Tambah data Event"
+}
+object DestinasiDetailEvnt: DestinasiNavigasi {
+    override val route= "detail event"
+    override val titleRes = "Detail Event"
+    const val Id_Event = "id"
+    val routeWithArgs = "$route/{$Id_Event}"
+}
+object DestinasiUpdateEvnt: DestinasiNavigasi {
+    override val route = "update event"
+    override val titleRes = "Update Event"
+    const val Id_Event = "id"
+    val routesWithArg = "$route/{$Id_Event}"
+}
