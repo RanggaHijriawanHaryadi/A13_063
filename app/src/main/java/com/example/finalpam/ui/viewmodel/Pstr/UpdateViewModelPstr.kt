@@ -1,12 +1,27 @@
 package com.example.finalpam.ui.viewmodel.Pstr
 
-
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.finalpam.ui.navigation.DestinasiUpdatePstr
 import kotlinx.coroutines.launch
 
 class UpdateViewModelPstr (
+
 ): ViewModel() {
+    var updateUiPstrState by mutableStateOf(InsertUiPesertaState())
+        private set
+
+    private val id_peserta: Int = checkNotNull(savedStateHandle[DestinasiUpdatePstr.Id_Peserta])
+
+    init {
+        viewModelScope.launch {
+            updateUiPstrState = pesertaRepository.getPesertaById(id_peserta).data
+                .toUiStatePstr()
+        }
+    }
 
     fun updatePstrState(insertUiPesertaEvent: InsertUiPesertaEvent){
         updateUiPstrState = InsertUiPesertaState(insertUiPesertaEvent = insertUiPesertaEvent)
