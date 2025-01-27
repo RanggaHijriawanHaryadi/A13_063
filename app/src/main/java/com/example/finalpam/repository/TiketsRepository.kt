@@ -6,7 +6,14 @@ import com.example.finalpam.entitas.TiketsResponseDetail
 import com.example.finalpam.service.TiketsService
 import java.io.IOException
 
+interface TiketsRepository {
+    suspend fun getTikets(): TiketsResponse
+    suspend fun getTiketsById(id_tiket: Int): TiketsResponseDetail
+    suspend fun insertTikets(tikets: Tikets)
+    suspend fun updateTikets(id_tiket:Int, tikets: Tikets)
+    suspend fun deleteTikets(id_tiket: Int)
 
+}
 
 class NetworkTiketsRepository(
    private val tiketsApiService: TiketsService
