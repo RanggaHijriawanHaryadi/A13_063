@@ -1,15 +1,18 @@
 package com.example.finalpam.ui.view.Event
 
-
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Delete
@@ -19,7 +22,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -37,6 +39,32 @@ import com.example.finalpam.entitas.Event
 
 
 
+
+@Composable
+fun EventLayout(
+    event: List<Event>,
+    modifier: Modifier = Modifier,
+    onDetailClick: (Event) -> Unit,
+    onDeleteClick: (Event) -> Unit = {}
+) {
+    LazyColumn (
+        modifier = modifier.fillMaxSize(),
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(event) { event ->
+            EventCard(
+                event = event,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { onDetailClick(event) },
+                onDeleteClick = {
+                    onDeleteClick(event)
+                }
+            )
+        }
+    }
+}
 
 @Composable
 fun EventCard(
