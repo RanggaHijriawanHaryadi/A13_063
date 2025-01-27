@@ -11,4 +11,16 @@ data class Tikets(
     val harga_tiket: String
 )
 
+@Serializable
+data class TiketsResponse(
+    val status: Boolean,
+    val message: String,
+    val data: List<Tikets>
+)
 
+@Serializable
+data class TiketsResponseDetail(
+    val status: Boolean,
+    val message: String,
+    val data: Tikets
+)
