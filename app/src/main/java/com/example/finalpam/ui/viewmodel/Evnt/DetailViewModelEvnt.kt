@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-
+import com.example.finalpam.entitas.EventResponseDetail
 import com.example.finalpam.repository.EventRepository
 import com.example.finalpam.ui.navigation.DestinasiDetailEvnt
 import kotlinx.coroutines.launch
@@ -14,7 +14,11 @@ import retrofit2.HttpException
 import java.io.IOException
 
 
-
+sealed class DetailUiEvntState {
+    data class Success(val event: EventResponseDetail) : DetailUiEvntState()
+    object Error : DetailUiEvntState()
+    object Loading : DetailUiEvntState()
+}
 
 class DetailViewModelEvnt(
     savedStateHandle: SavedStateHandle,
