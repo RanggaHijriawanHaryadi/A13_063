@@ -11,3 +11,16 @@ data class Peserta(
     val nomor_telepon: String
 )
 
+@Serializable
+data class PesertaResponse(
+    val status: Boolean,
+    val message: String,
+    val data: List<Peserta>
+)
+
+@Serializable
+data class PesertaResponseDetail(
+    val status: Boolean,
+    val message: String,
+    val data: Peserta
+)
