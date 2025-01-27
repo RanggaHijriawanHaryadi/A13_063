@@ -16,8 +16,14 @@ import java.io.IOException
 
 
 class DetailViewModelPstr(
-
+    savedStateHandle: SavedStateHandle,
+    private val pstr: PesertaRepository
 ) : ViewModel() {
+
+    var detailUiPstrState: DetailUiPstrState by mutableStateOf(DetailUiPstrState.Loading)
+        private set
+
+    private val id_peserta: Int = checkNotNull(savedStateHandle[DestinasiDetailPstr.Id_Peserta])
 
     init {
         getPesertaById()
