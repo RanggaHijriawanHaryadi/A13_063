@@ -113,6 +113,61 @@ fun PengelolaHalaman(
             }
         }
 
+        // Halaman Event
+        composable(
+            DestinasiHomeEvnt.route
+        ) {
+            HomeViewEvent(
+                navigateToEvntEntry = { navController.navigate(DestinasiInsertEvnt.route) },
+                onDetailEvntClick = { id_event->
+                    navController.navigate("${DestinasiDetailEvnt.route}/$id_event")
+                },
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(DestinasiInsertEvnt.route){
+            InsertViewEvent(
+                navigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(
+            DestinasiDetailEvnt.routeWithArgs,
+            arguments = listOf(
+                navArgument(DestinasiDetailEvnt.Id_Event){
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            val id_event = it.arguments?.getInt(DestinasiDetailEvnt.Id_Event)
+            id_event?.let {
+                DetailViewEvent(
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
+                    onEditClick =  {navController.navigate("${DestinasiUpdateEvnt.route}/$id_event")},
+                )
+            }
+        }
+        composable(
+            DestinasiUpdateEvnt.routesWithArg,
+            arguments = listOf(
+                navArgument(DestinasiUpdateEvnt.Id_Event) {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            val id_event = it.arguments?.getInt(DestinasiUpdateEvnt.Id_Event)
+            id_event?.let { id_event ->
+                UpdateViewEvent(
+                    onBack = {navController.popBackStack()},
+                    onNavigate = {navController.popBackStack()}
+                )
+            }
+        }
 
     }
 }
