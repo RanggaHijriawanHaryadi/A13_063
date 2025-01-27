@@ -11,3 +11,17 @@ data class Event(
     val lokasi_event: String
 )
 
+@Serializable
+data class EventResponse(
+    val status: Boolean,
+    val message: String,
+    val data: List<Event>
+)
+
+@Serializable
+data class EventResponseDetail(
+    val status: Boolean,
+    val message: String,
+    val data: Event
+)
+
