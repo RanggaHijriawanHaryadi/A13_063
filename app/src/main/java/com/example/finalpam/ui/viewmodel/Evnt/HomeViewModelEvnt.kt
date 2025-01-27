@@ -1,6 +1,8 @@
 package com.example.finalpam.ui.viewmodel.Evnt
 
-
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import coil.network.HttpException
@@ -18,6 +20,8 @@ sealed class HomeUiEventState {
 class HomeViewModelEvnt(
     private val evt: EventRepository
 ): ViewModel() {
+    var evntUIState: HomeUiEventState by mutableStateOf(HomeUiEventState.Loading)
+        private set
 
     init {
         getEvnt()
