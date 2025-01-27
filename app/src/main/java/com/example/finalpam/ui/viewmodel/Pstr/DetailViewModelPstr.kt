@@ -15,6 +15,12 @@ import retrofit2.HttpException
 import java.io.IOException
 
 
+sealed class DetailUiPstrState {
+    data class Success(val peserta: PesertaResponseDetail) : DetailUiPstrState()
+    object Error : DetailUiPstrState()
+    object Loading : DetailUiPstrState()
+}
+
 class DetailViewModelPstr(
     savedStateHandle: SavedStateHandle,
     private val pstr: PesertaRepository
