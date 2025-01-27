@@ -1,6 +1,8 @@
 package com.example.finalpam.ui.viewmodel.Pstr
 
-
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import coil.network.HttpException
@@ -19,6 +21,22 @@ class HomeViewModelPstr(
     private val pst: PesertaRepository
 ) : ViewModel(){
 
+    init {
+        getPstr()
+    }
+
+    fun getPstr(){
+        viewModelScope.launch {
+            pstrUIState = HomeUiPesertaState.Loading
+            pstrUIState = try {
+                HomeUiPesertaState.Success(pst.getPeserta().data)
+            } catch (e: IOException) {
+                HomeUiPesertaState.Error
+            } catch (e: HttpException){
+                HomeUiPesertaState.Error
+            }
+        }
+    }
 
     fun deletePstr(id_peserta: Int) {
         viewModelScope.launch {
