@@ -19,6 +19,22 @@ class HomeViewModelEvnt(
     private val evt: EventRepository
 ): ViewModel() {
 
+    init {
+        getEvnt()
+    }
+
+    fun getEvnt(){
+        viewModelScope.launch {
+            evntUIState = HomeUiEventState.Loading
+            evntUIState = try {
+                HomeUiEventState.Success(evt.getEvent().data)
+            } catch (e: IOException) {
+                HomeUiEventState.Error
+            } catch (e: HttpException){
+                HomeUiEventState.Error
+            }
+        }
+    }
 
     fun deleteEvnt(id_event: Int) {
         viewModelScope.launch {
