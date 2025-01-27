@@ -20,6 +20,8 @@ sealed class HomeUiPesertaState {
 class HomeViewModelPstr(
     private val pst: PesertaRepository
 ) : ViewModel(){
+    var pstrUIState: HomeUiPesertaState by mutableStateOf(HomeUiPesertaState.Loading)
+        private set
 
     init {
         getPstr()
