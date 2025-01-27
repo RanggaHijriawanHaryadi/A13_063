@@ -9,7 +9,7 @@ import com.example.finalpam.FestivalApplications
 import com.example.finalpam.ui.viewmodel.Pstr.DetailViewModelPstr
 import com.example.finalpam.ui.viewmodel.Pstr.HomeViewModelPstr
 import com.example.finalpam.ui.viewmodel.Pstr.InsertViewModelPstr
-
+import com.example.finalpam.ui.viewmodel.Pstr.UpdateViewModelPstr
 
 
 object PenyediaViewModel {
@@ -25,7 +25,9 @@ object PenyediaViewModel {
         initializer {
             DetailViewModelPstr(createSavedStateHandle(),aplikasiFsvl().container.pesertaRepository)
         }
-
+        initializer {
+            UpdateViewModelPstr(createSavedStateHandle(),aplikasiFsvl().container.pesertaRepository)
+        }
     }
 }
 
