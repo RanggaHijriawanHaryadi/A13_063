@@ -7,7 +7,13 @@ import com.example.finalpam.service.EventService
 import java.io.IOException
 
 
-
+interface EventRepository {
+    suspend fun getEvent(): EventResponse
+    suspend fun insertEvent(event: Event)
+    suspend fun updateEvent(id_event:Int, event: Event)
+    suspend fun deleteEvent(id_event: Int)
+    suspend fun getEventById(id_event: Int): EventResponseDetail
+}
 
 class NetworkEventRepository(
     private val eventApiService: EventService
