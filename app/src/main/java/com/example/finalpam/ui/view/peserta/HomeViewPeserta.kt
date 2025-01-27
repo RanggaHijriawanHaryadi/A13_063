@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Person
 
@@ -22,9 +23,12 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -37,11 +41,61 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalpam.R
 import com.example.finalpam.entitas.Peserta
+import com.example.finalpam.ui.costumewidget.TopAppBar
+import com.example.finalpam.ui.navigation.DestinasiHomePstr
 import com.example.finalpam.ui.viewmodel.Pstr.HomeUiPesertaState
+import com.example.finalpam.ui.viewmodel.Pstr.HomeViewModelPstr
+import com.example.finalpam.ui.viewmodel.PenyediaViewModel
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeViewPeserta(
+    navigateToPstrEntry: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDetailPstrClick: (Int) -> Unit = {},
+    onBackClick: () -> Unit,
+    viewModel: HomeViewModelPstr = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = DestinasiHomePstr.titleRes,
+                canNavigateBack = true,
+                navigateUp = onBackClick,
+                onRefresh = { viewModel.getPstr() }
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToPstrEntry,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(18.dp)
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Peserta")
+            }
+        },
+        modifier = modifier.fillMaxSize()
+    ) { innerPadding ->
+
+            HomePstrStatus(
+                homeUiPesertaState = viewModel.pstrUIState,
+                retryAction = { viewModel.getPstr() },
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize(), // Pastikan ini ada
+                onDetailPstrClick = onDetailPstrClick,
+                onDeleteClick = {
+                    viewModel.deletePstr(it.id_peserta)
+                    viewModel.getPstr()
+                }
+            )
 
 
+    }
+}
 
 @Composable
 fun HomePstrStatus(
