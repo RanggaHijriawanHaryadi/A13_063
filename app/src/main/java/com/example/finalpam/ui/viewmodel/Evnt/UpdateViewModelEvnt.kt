@@ -11,7 +11,8 @@ import com.example.finalpam.ui.navigation.DestinasiUpdateEvnt
 import kotlinx.coroutines.launch
 
 class UpdateViewModelEvnt(
-
+    savedStateHandle: SavedStateHandle,
+    private val evnt: EventRepository
 ): ViewModel() {
         var updateUiEvntState by mutableStateOf(InsertUiEvntState())
         private set
