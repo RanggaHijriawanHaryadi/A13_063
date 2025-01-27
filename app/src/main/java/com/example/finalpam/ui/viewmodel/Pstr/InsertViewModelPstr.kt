@@ -6,6 +6,16 @@ import com.example.finalpam.entitas.Peserta
 
 
 
+data class InsertUiPesertaState(
+    val insertUiPesertaEvent: InsertUiPesertaEvent = InsertUiPesertaEvent(),
+
+
+)
+
+fun Peserta.toUiStatePstr(): InsertUiPesertaState = InsertUiPesertaState(
+    insertUiPesertaEvent = toInsertUiPstrEvent()
+)
+
 fun InsertUiPesertaEvent.toPstr(): Peserta = Peserta (
     id_peserta = id_peserta ?: 0,
     nama_peserta = nama_peserta,
