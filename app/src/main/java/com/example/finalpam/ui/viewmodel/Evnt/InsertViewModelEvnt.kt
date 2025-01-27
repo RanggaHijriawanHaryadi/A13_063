@@ -6,6 +6,14 @@ import com.example.finalpam.entitas.Event
 
 
 
+data class InsertUiEvntState(
+    val insertUiEvntEvent: InsertUiEvntEvent = InsertUiEvntEvent(),
+    )
+
+fun Event.toUiStateEvnt(): InsertUiEvntState = InsertUiEvntState(
+    insertUiEvntEvent = toInsertUiEvntEvent()
+)
+
 fun InsertUiEvntEvent.toEvnt(): Event = Event (
     id_event = id_event ?: 0,
     nama_event = nama_event,
