@@ -7,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.finalpam.ui.view.peserta.HomeViewPeserta
+import com.example.finalpam.ui.view.peserta.InsertViewPstr
+
 
 
 @Composable
@@ -15,7 +17,7 @@ fun PengelolaHalaman(
 ) {
     NavHost(
         navController = navController,
-        startDestination = DestinasiHomePstr.route,
+        startDestination = DestinasiHalamanUtama.route,
         modifier = Modifier
     ) {
 
@@ -33,6 +35,12 @@ fun PengelolaHalaman(
                     navController.popBackStack()
                 }
             )
+        }
+        composable(DestinasiInsertPstr.route){
+            InsertViewPstr(
+                navigateBack = {
+                navController.popBackStack()
+            })
         }
     }
 }
