@@ -26,4 +26,9 @@ object DestinasiDetailPstr : DestinasiNavigasi {
     const val Id_Peserta = "id"
     val routeWithArgs = "$route/{$Id_Peserta}"
 }
-
+object DestinasiUpdatePstr: DestinasiNavigasi {
+    override val route = "update peserta"
+    override val titleRes = "Update Peserta"
+    const val Id_Peserta = "id"
+    val routesWithArg = "$route/{$Id_Peserta}"
+}
