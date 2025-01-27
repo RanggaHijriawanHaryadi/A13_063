@@ -15,15 +15,20 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -38,12 +43,59 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.finalpam.R
 import com.example.finalpam.entitas.Event
+import com.example.finalpam.ui.costumewidget.TopAppBar
+import com.example.finalpam.ui.navigation.DestinasiHomeEvnt
 import com.example.finalpam.ui.viewmodel.Evnt.HomeUiEventState
+import com.example.finalpam.ui.viewmodel.Evnt.HomeViewModelEvnt
+import com.example.finalpam.ui.viewmodel.PenyediaViewModel
 
 
-
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeViewEvent(
+    navigateToEvntEntry: () -> Unit,
+    modifier: Modifier = Modifier,
+    onBackClick: () -> Unit,
+    onDetailEvntClick: (Int) -> Unit = {},
+    viewModel: HomeViewModelEvnt = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = DestinasiHomeEvnt.titleRes,
+                canNavigateBack = true,
+                navigateUp = onBackClick,
+                onRefresh = { viewModel.getEvnt() }
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToEvntEntry,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(18.dp)
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Event")
+            }
+        },
+        modifier = modifier.fillMaxSize()
+    ) { innerPadding ->
+        HomeEvntStatus (
+            homeUiEventState = viewModel.evntUIState,
+            retryAction = { viewModel.getEvnt() },
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize(), // Pastikan ini ada
+            onDetailClick = onDetailEvntClick,
+            onDeleteClick = {
+                viewModel.deleteEvnt(it.id_event)
+                viewModel.getEvnt()
+            }
+        )
+    }
+}
 
 @Composable
 fun HomeEvntStatus(
