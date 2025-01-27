@@ -1,9 +1,14 @@
 package com.example.finalpam.ui.viewmodel.Evnt
 
-
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
+import com.example.finalpam.repository.EventRepository
+import com.example.finalpam.ui.navigation.DestinasiDetailEvnt
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -12,9 +17,14 @@ import java.io.IOException
 
 
 class DetailViewModelEvnt(
-
+    savedStateHandle: SavedStateHandle,
+    private val evnt: EventRepository
 ): ViewModel() {
+    var detailUiEvntState: DetailUiEvntState by mutableStateOf(
+        DetailUiEvntState.Loading)
+        private set
 
+    private val id_event: Int = checkNotNull(savedStateHandle[DestinasiDetailEvnt.Id_Event])
 
     init {
         getEventById()
