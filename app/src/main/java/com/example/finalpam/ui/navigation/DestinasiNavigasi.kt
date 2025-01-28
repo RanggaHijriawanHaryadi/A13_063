@@ -54,3 +54,25 @@ object DestinasiUpdateEvnt: DestinasiNavigasi {
     const val Id_Event = "id"
     val routesWithArg = "$route/{$Id_Event}"
 }
+
+// Halaman Home Tikets
+object DestinasiHomeTkts: DestinasiNavigasi{
+    override val route = "Tikets"
+    override val titleRes = "Halaman Tikets"
+}
+object DestinasiInsertTkts: DestinasiNavigasi{
+    override val route = "Insert tikets"
+    override val titleRes = "Tambah data Tiket"
+}
+object DestinasiDetailTkts: DestinasiNavigasi {
+    override val route= "detail Tiket"
+    override val titleRes = "Detail Tiket"
+    const val Id_Tiket = "id"
+    val routeWithArgs = "$route/{$Id_Tiket}"
+}
+object DestinasiUpdateTkts: DestinasiNavigasi {
+    override val route = "update Tiket"
+    override val titleRes = "Update Tiket"
+    const val Id_Tiket = "id"
+    val routesWithArg = "$route/{$Id_Tiket}"
+}
