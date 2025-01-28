@@ -54,6 +54,20 @@ object PenyediaViewModel {
         initializer {
             UpdateViewModelEvnt(createSavedStateHandle(),aplikasiFsvl().container.eventRepository)
         }
+
+        // Untuk Tikets
+        initializer {
+            HomeViewModelTkts(aplikasiFsvl().container.tiketsRepository,aplikasiFsvl().container.pesertaRepository,aplikasiFsvl().container.eventRepository)
+        }
+        initializer {
+            InsertViewModelTkts(aplikasiFsvl().container.tiketsRepository,aplikasiFsvl().container.pesertaRepository,aplikasiFsvl().container.eventRepository)
+        }
+        initializer {
+            DetailViewModelTkts(createSavedStateHandle(),aplikasiFsvl().container.tiketsRepository,aplikasiFsvl().container.pesertaRepository,aplikasiFsvl().container.eventRepository)
+        }
+        initializer {
+            UpdateViewModelTkts(createSavedStateHandle(),aplikasiFsvl().container.tiketsRepository,aplikasiFsvl().container.pesertaRepository,aplikasiFsvl().container.eventRepository)
+        }
     }
 }
 
