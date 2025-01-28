@@ -6,6 +6,13 @@ import com.example.finalpam.entitas.TransaksiResponseDetail
 import com.example.finalpam.service.TransaksiService
 import java.io.IOException
 
+interface TransaksiRepository {
+    suspend fun getTransaksi() : TransaksiResponse
+    suspend fun getTransaksiById(id_transaksi:Int): TransaksiResponseDetail
+    suspend fun insertTransaksi (transaksi: Transaksi)
+    suspend fun updateTransaksi (id_transaksi: Int, transaksi: Transaksi)
+    suspend fun deleteTransaksi (id_transaksi: Int)
+}
 class NetworkTransaksiRepository (
     private val transaksiApiService: TransaksiService
 ): TransaksiRepository{
