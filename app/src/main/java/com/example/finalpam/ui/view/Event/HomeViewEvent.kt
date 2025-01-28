@@ -93,7 +93,7 @@ fun HomeViewEvent(
                             contentDescription = "",
                             modifier = Modifier.padding(end = 8.dp) // Memberikan jarak antara ikon dan teks
                         )
-                        Text("Tambah Transaksi")
+                        Text("Tambah Event")
                     }
                 }
             }
