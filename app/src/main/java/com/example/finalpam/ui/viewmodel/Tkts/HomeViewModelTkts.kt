@@ -16,7 +16,11 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 
 
-
+sealed class HomeUiTikesState {
+    data class Success(val tikets: List<Tikets>) : HomeUiTikesState()
+    object Error : HomeUiTikesState()
+    object Loading : HomeUiTikesState()
+}
 
 class HomeViewModelTkts (
     private val tkt: TiketsRepository,
