@@ -137,6 +137,20 @@ fun HalamanUtamaView(
                     fontStyle = FontStyle.Italic
                   )
                 }
+                // Home Transaksi
+                Button(
+                  onClick = onTransaksiClick,
+                  modifier = Modifier.fillMaxWidth()
+                    .padding(8.dp),
+                  colors = ButtonDefaults.buttonColors(Color(0xFF87CEEB))
+                ) {
+                  Text(
+                    text = "Home Transaksi",
+                    fontSize = 20.sp,
+                    fontStyle = FontStyle.Italic
+                  )
+
+                }
               }
             }
             Divider(
