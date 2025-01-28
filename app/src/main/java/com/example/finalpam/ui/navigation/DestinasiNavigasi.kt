@@ -76,3 +76,25 @@ object DestinasiUpdateTkts: DestinasiNavigasi {
     const val Id_Tiket = "id"
     val routesWithArg = "$route/{$Id_Tiket}"
 }
+
+// Halaman Home Transaksi
+object  DestinasiHomeTski: DestinasiNavigasi{
+    override val route = "Transaksi"
+    override val titleRes = "Halaman Transaksi"
+}
+object DestinasiInsertTski: DestinasiNavigasi{
+    override val route = "Insert transaksi"
+    override val titleRes = "Tambah data Transaksi"
+}
+object DestinasiDetailTski: DestinasiNavigasi{
+    override val route= "detail Transaksi"
+    override val titleRes = "Detail Transaksi"
+    const val Id_Transaksi = "id"
+    val routeWithArgs = "$route/{$Id_Transaksi}"
+}
+object DestinasiUpdateTski: DestinasiNavigasi {
+    override val route = "update Transaksi"
+    override val titleRes = "Update Transaksi"
+    const val Id_Transaksi = "id"
+    val routesWithArg = "$route/{$Id_Transaksi}"
+}
