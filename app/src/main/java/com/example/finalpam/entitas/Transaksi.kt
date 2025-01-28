@@ -13,3 +13,17 @@ data class Transaksi(
     val jumlah_pembayaran: String,
     val tanggal_transaksi: String
 )
+
+@Serializable
+data class TransaksiResponse(
+    val status: Boolean,
+    val message: String,
+    val data: List<Transaksi>
+)
+
+@Serializable
+data class TransaksiResponseDetail(
+    val status: Boolean,
+    val message: String,
+    val data: Transaksi
+)
