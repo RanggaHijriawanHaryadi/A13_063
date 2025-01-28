@@ -22,6 +22,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -49,7 +50,7 @@ fun HalamanUtamaView(
   modifier: Modifier = Modifier
 ){
       LazyColumn (
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize().padding(top = 20.dp)
 
       ) {
         item {
@@ -123,8 +124,24 @@ fun HalamanUtamaView(
                     fontStyle = FontStyle.Italic
                   )
                 }
+                // Home Tiket
+                Button(
+                  onClick = onTiketsClick,
+                  modifier = Modifier.fillMaxWidth()
+                    .padding(8.dp),
+                  colors = ButtonDefaults.buttonColors(Color(0xFF87CEEB))
+                ) {
+                  Text(
+                    text = "Home Tiket",
+                    fontSize = 20.sp,
+                    fontStyle = FontStyle.Italic
+                  )
+                }
               }
             }
+            Divider(
+              thickness = 8.dp,
+              modifier = Modifier.padding(12.dp))
           }
         }
       }
