@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import coil.network.HttpException
 import com.example.finalpam.entitas.Event
 import com.example.finalpam.entitas.Peserta
-import com.example.finalpam.entitas.Tikets
 import com.example.finalpam.repository.EventRepository
 import com.example.finalpam.repository.PesertaRepository
 import com.example.finalpam.repository.TiketsRepository
@@ -23,6 +22,37 @@ class HomeViewModelTkts (
     private val event: EventRepository
 ):ViewModel(){
 
+    // Dropdowm
+    var pstrList by mutableStateOf<List<Peserta>>(emptyList())
+    var evntList by mutableStateOf<List<Event>>(emptyList())
+
+    init {
+        getEvent()
+    }
+    init {
+        getPeserta()
+    }
+
+    private fun getEvent(){
+        viewModelScope.launch {
+            try {
+                evntList = event.getEvent().data
+            }catch(e:Exception){
+
+            }
+        }
+    }
+
+    private fun getPeserta(){
+        viewModelScope.launch {
+            try {
+                pstrList = peserta.getPeserta().data
+
+            }catch(e:Exception){
+
+            }
+        }
+    }
 
     init {
         getTkts()
