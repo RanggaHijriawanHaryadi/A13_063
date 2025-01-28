@@ -51,7 +51,9 @@ fun PengelolaHalaman(
                 onTiketsClick = {
                     navController.navigate(DestinasiHomeTkts.route)
                 },
-
+                onTransaksiClick = {
+                    navController.navigate(DestinasiHomeTski.route)
+                }
 
             )
         }
@@ -223,6 +225,62 @@ fun PengelolaHalaman(
             val id_tiket = it.arguments?.getInt(DestinasiUpdateTkts.Id_Tiket)
             id_tiket?.let { id_tiket ->
                 UpdateViewTikets(
+                    onBack = {navController.popBackStack()},
+                    onNavigate = {navController.popBackStack()}
+                )
+            }
+        }
+
+        //Halaman Transaksi
+        composable(
+            DestinasiHomeTski.route
+        ) {
+            HomeViewTransaksi(
+                navigateToTskiEntry = { navController.navigate(DestinasiInsertTski.route) },
+                onDetailTskiClick = { id_transaksi->
+                    navController.navigate("${DestinasiDetailTski.route}/$id_transaksi")
+                },
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(DestinasiInsertTski.route){
+            InsertViewTransaksi(
+                navigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(
+            DestinasiDetailTski.routeWithArgs,
+            arguments = listOf(
+                navArgument(DestinasiDetailTski.Id_Transaksi){
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            val id_transaksi = it.arguments?.getInt(DestinasiDetailTski.Id_Transaksi)
+            id_transaksi?.let {
+                DetailViewTransaksi(
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
+                    onEditTskiClick =  {navController.navigate("${DestinasiUpdateTski.route}/$id_transaksi")},
+                )
+            }
+        }
+        composable(
+            DestinasiUpdateTski.routesWithArg,
+            arguments = listOf(
+                navArgument(DestinasiUpdateTski.Id_Transaksi) {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            val id_transaksi = it.arguments?.getInt(DestinasiUpdateTski.Id_Transaksi)
+            id_transaksi?.let { id_transaksi ->
+                UpdateViewTransaksi(
                     onBack = {navController.popBackStack()},
                     onNavigate = {navController.popBackStack()}
                 )
