@@ -48,6 +48,9 @@ fun PengelolaHalaman(
                 onEventClick = {
                     navController.navigate(DestinasiHomeEvnt.route)
                 },
+                onTiketsClick = {
+                    navController.navigate(DestinasiHomeTkts.route)
+                },
 
 
             )
@@ -169,5 +172,61 @@ fun PengelolaHalaman(
             }
         }
 
+
+        // Halaman Tiket
+        composable(
+            DestinasiHomeTkts.route
+        ) {
+            HomeViewTikets(
+                navigateToTktsEntry = { navController.navigate(DestinasiInsertTkts.route) },
+                onDetailTktsClick = { id_tiket->
+                    navController.navigate("${DestinasiDetailTkts.route}/$id_tiket")
+                },
+                onBackClick = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(DestinasiInsertTkts.route){
+            InsertViewTikets(
+                navigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(
+            DestinasiDetailTkts.routeWithArgs,
+            arguments = listOf(
+                navArgument(DestinasiDetailTkts.Id_Tiket){
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            val id_tiket = it.arguments?.getInt(DestinasiDetailTkts.Id_Tiket)
+            id_tiket?.let {
+                DetailViewTikets(
+                    onBackClick = {
+                        navController.popBackStack()
+                    },
+                    onEditTktsClick =  {navController.navigate("${DestinasiUpdateTkts.route}/$id_tiket")},
+                )
+            }
+        }
+        composable(
+            DestinasiUpdateTkts.routesWithArg,
+            arguments = listOf(
+                navArgument(DestinasiUpdateTkts.Id_Tiket) {
+                    type = NavType.IntType
+                }
+            )
+        ) {
+            val id_tiket = it.arguments?.getInt(DestinasiUpdateTkts.Id_Tiket)
+            id_tiket?.let { id_tiket ->
+                UpdateViewTikets(
+                    onBack = {navController.popBackStack()},
+                    onNavigate = {navController.popBackStack()}
+                )
+            }
+        }
     }
 }
