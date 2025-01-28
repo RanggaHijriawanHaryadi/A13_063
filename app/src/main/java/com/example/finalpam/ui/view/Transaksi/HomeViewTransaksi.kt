@@ -25,8 +25,10 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -43,6 +45,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -84,13 +87,25 @@ fun HomeViewTransaksi(
                 onRefresh = { viewModel.getTski() }
             )
         },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = navigateToTskiEntry,
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(18.dp)
-            ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Tiket")
+        bottomBar = {
+            Column (modifier = Modifier.fillMaxWidth().padding(44.dp)) {
+                Row(
+                    modifier=Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Button(
+                        onClick = navigateToTskiEntry,
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(Color(0xFF87CEEB))
+                    ){
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "",
+                            modifier = Modifier.padding(end = 8.dp) // Memberikan jarak antara ikon dan teks
+                        )
+                        Text("Tambah Transaksi")
+                    }
+                }
             }
         },
         modifier = modifier.fillMaxSize()
@@ -142,8 +157,7 @@ fun HomeTskiStatus(
                     }
                 )
             }
-        is HomeUiTransaksiState.Error -> OnError(
-            retryAction,
+        is HomeUiTransaksiState.Error -> OnError(retryAction,
             modifier = modifier.fillMaxSize()
         )
     }
@@ -192,7 +206,7 @@ fun TransaksiLayout(
 ) {
     LazyColumn (
         modifier = modifier
-            .fillMaxHeight().background(color = Color.Blue),
+            .fillMaxHeight(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -244,54 +258,64 @@ fun TransaksiCard(
         shape = MaterialTheme.shapes.medium,
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
-        Row (
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ){ Icon(
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = colorResource(id = R.color.skin))
+        ){
+            Row (
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){ Icon(
                 imageVector = Icons.Filled.ShoppingCart,
                 contentDescription = null,
                 modifier = Modifier
                     .size(90.dp)
                     .padding(18.dp)
             )
-            Column (
-                modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ){
-                Row (
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
+                Column (
+                    modifier = Modifier.padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ){
+                    Row (
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ){
+                        Text(
+                            text = "Id Tiket: ${Tikets}",
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                        Spacer(Modifier.weight(1f))
+                        IconButton(onClick = { showDialog = true }) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = null,
+                            )
+                        }
+
+                    }
+                    Divider(
+                        thickness = 4.dp,
+                        modifier = Modifier.fillMaxWidth())
+
                     Text(
-                        text = "Id Tiket: ${Tikets}",
+                        text = "Nama Event: ${namaevnt}",
                         style = MaterialTheme.typography.titleMedium,
                     )
-                    Spacer(Modifier.weight(1f))
-                    IconButton(onClick = { showDialog = true }) {
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = null,
-                        )
-                    }
+                    Text(
+                        text = "Nama Peserta: ${namapsrt}",
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                    Text(
+                        text = "tanggal: ${transaksi.tanggal_transaksi}",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    Text(
+                        text = "harga: ${transaksi.jumlah_pembayaran}",
+                        style = MaterialTheme.typography.titleMedium
+                    )
 
                 }
-                Text(
-                    text = "Nama Event: ${namaevnt}",
-                    style = MaterialTheme.typography.titleMedium,
-                )
-                Text(
-                    text = "Nama Peserta: ${namapsrt}",
-                    style = MaterialTheme.typography.titleMedium,
-                )
-                Text(
-                    text = "tanggal: ${transaksi.tanggal_transaksi}",
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Text(
-                    text = "harga: ${transaksi.jumlah_pembayaran}",
-                    style = MaterialTheme.typography.titleMedium
-                )
-
             }
         }
     }

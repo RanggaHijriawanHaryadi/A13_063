@@ -20,9 +20,11 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CardDefaults.cardColors
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -41,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -73,13 +76,26 @@ fun HomeViewTikets(
                 onRefresh = { viewModel.getTkts() }
             )
         },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = navigateToTktsEntry,
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(18.dp)
-            ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Tiket")
+        bottomBar = {
+            Box(modifier = Modifier.fillMaxWidth().padding(44.dp))
+            {
+                Row(
+                    modifier=Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Button(
+                        onClick = navigateToTktsEntry,
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(Color(0xFF87CEEB))
+                    ){
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "",
+                            modifier = Modifier.padding(end = 8.dp) // Memberikan jarak antara ikon dan teks
+                        )
+                        Text("Tambah Tiket")
+                    }
+                }
             }
         },
         modifier = modifier.fillMaxSize()
@@ -207,6 +223,7 @@ fun TiketsCard(
     var namaevnt = getListEvnt.find { it.id_event == tikets.id_event}?.nama_event ?: "Tidak ditemukan nama Event"
     var namaevnttanggal = getListEvnt.find { it.id_event == tikets.id_event}?.tanggal_event ?: "Tidak ditemukan tanggal"
     var namaeventlokasi = getListEvnt.find {  it.id_event == tikets.id_event}?.lokasi_event ?: "Tidak ditemukan lokasi"
+
     val cardColors = if (tikets.kapasitas_tiket == 0) {
         println("Sold Out")
         Color.Red
@@ -262,6 +279,10 @@ fun TiketsCard(
                         )
                     }
                 }
+                Divider(
+                    thickness = 4.dp,
+                    modifier = Modifier.fillMaxWidth())
+
                 Text(
                     text = "Nama Event: ${namaevnt}",
                     style = MaterialTheme.typography.titleMedium,
@@ -293,12 +314,13 @@ fun DetailTiket(
     Row{
         Text(
             text = "$judul : ",
-            fontSize = 20.sp,
-            color = Color.Black
+            fontSize = 16.sp,
+            color = Color.Black,
+            fontWeight = FontWeight.SemiBold
         )
         Text(
             text = isinya,
-            fontSize = 20.sp
+            fontSize = 16.sp
         )
     }
 }
