@@ -25,7 +25,7 @@ sealed class HomeUiTransaksiState {
     object Error : HomeUiTransaksiState()
     object Loading : HomeUiTransaksiState()
 }
-
+//
 class HomeViewModelTski(
     private val tsk: TransaksiRepository,
     private val tiket: TiketsRepository,
