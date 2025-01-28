@@ -1,14 +1,19 @@
 package com.example.finalpam.ui.view.Event
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,10 +26,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.finalpam.R
 import com.example.finalpam.entitas.Event
 import com.example.finalpam.ui.costumewidget.TopAppBar
 import com.example.finalpam.ui.navigation.DestinasiDetailEvnt
@@ -53,18 +60,27 @@ fun DetailViewEvent(
                 }
             )
         },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = onEditClick,
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(18.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = "Edit Event"
-                )
+        bottomBar = {
+            Column (modifier = Modifier.fillMaxWidth().padding(44.dp)) {
+                Row(
+                    modifier=Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Button(
+                        onClick = onEditClick,
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(Color(0xFF87CEEB))
+                    ){
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "",
+                            modifier = Modifier.padding(end = 8.dp)
+                        )
+                        Text("Update Event")
+                    }
+                }
             }
-        }
+        },
     ) { innerPadding ->
 
         BodyDetailEvnt(
@@ -118,17 +134,16 @@ fun ItemDetailEvnt(
         modifier = modifier,
         shape = MaterialTheme.shapes.medium,
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        colors = CardDefaults.cardColors(
+            colorResource(id = R.color.yellow))
     ){
         Column(
             modifier = Modifier.padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             DetailEvent(judul = "Nama Event", isinya = event.nama_event)
-            Spacer(modifier = Modifier.padding(4.dp))
             DetailEvent(judul = "Deskripsi Event", isinya = event.deskripsi_event)
-            Spacer(modifier = Modifier.padding(4.dp))
             DetailEvent(judul = "Tangga Event", isinya = event.tanggal_event)
-            Spacer(modifier = Modifier.padding(4.dp))
             DetailEvent(judul = "Lokasi Event", isinya = event.lokasi_event)
         }
     }
@@ -147,13 +162,13 @@ fun DetailEvent(
         Text(
             text = "$judul : ",
             fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Gray
+            fontWeight = FontWeight.SemiBold,
+            color = Color.Black
         )
         Text(
             text = isinya,
             fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.SemiBold
         )
     }
 }

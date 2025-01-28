@@ -1,14 +1,18 @@
 package com.example.finalpam.ui.view.Transaksi
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -21,10 +25,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.finalpam.R
 import com.example.finalpam.entitas.Event
 import com.example.finalpam.entitas.Peserta
 import com.example.finalpam.entitas.Tikets
@@ -59,18 +65,27 @@ fun DetailViewTransaksi(
                 }
             )
         },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = onEditTskiClick,
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(18.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Edit,
-                    contentDescription = "Edit Transaksi"
-                )
+        bottomBar = {
+            Column (modifier = Modifier.fillMaxWidth().padding(44.dp)) {
+                Row(
+                    modifier=Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Button(
+                        onClick = onEditTskiClick,
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(Color(0xFF87CEEB))
+                    ){
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = "",
+                            modifier = Modifier.padding(end = 8.dp)
+                        )
+                        Text("Update Transaksi")
+                    }
+                }
             }
-        }
+        },
     ) { innerPadding ->
 
         BodyDetailTski(
@@ -126,30 +141,37 @@ fun ItemDetailTski(
     modifier: Modifier = Modifier,
     transaksi: Transaksi,
 
-    ){
-        var Tikets = tskiList.find { it.id_tiket == transaksi.id_tiket }?.id_tiket ?: "Tidak ditemukan harga tiket"
-        var Event = evntList.find { it.id_event == transaksi.id_event }?.nama_event ?: "Tidak ditemukan nama event"
-        var Peserta = pstrList.find { it.id_peserta ==  transaksi.id_peserta }?.nama_peserta ?: "Tidak ditemukan nama peserta"
+    ) {
+    var Tikets = tskiList.find { it.id_tiket == transaksi.id_tiket }?.id_tiket
+        ?: "Tidak ditemukan harga tiket"
+    var Event = evntList.find { it.id_event == transaksi.id_event }?.nama_event
+        ?: "Tidak ditemukan nama event"
+    var Peserta = pstrList.find { it.id_peserta == transaksi.id_peserta }?.nama_peserta
+        ?: "Tidak ditemukan nama peserta"
 
-        Card(
-            modifier = modifier,
-            shape = MaterialTheme.shapes.medium,
-            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        ){
-            Column(
-                modifier = Modifier.padding(8.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                DetailTski(judul = "Id Tiket", isinya = Tikets.toString())
-                DetailTski(judul = "Nama Event", isinya = Event)
-                DetailTski(judul = "Nama Peserta", isinya = Peserta)
-                DetailTski(judul = "Tanggal Transaksi", isinya = transaksi.tanggal_transaksi)
-                DetailTski(judul = "Jumlah Pembayaran", isinya = transaksi.jumlah_pembayaran)
-                DetailTski(judul = "Jumlah Tiket yang dibeli", isinya = transaksi.jumlah_tiket)
-
-            }
+    Card(
+        modifier = modifier,
+        shape = MaterialTheme.shapes.medium,
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        colors = CardDefaults.cardColors(
+            colorResource(id = R.color.yellow)
+        )
+    ) {
+        Column(
+            modifier = Modifier.padding(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            DetailTski(judul = "Id Tiket", isinya = Tikets.toString())
+            DetailTski(judul = "Nama Event", isinya = Event)
+            DetailTski(judul = "Nama Peserta", isinya = Peserta)
+            DetailTski(judul = "Tanggal Transaksi", isinya = transaksi.tanggal_transaksi)
+            DetailTski(judul = "Jumlah Pembayaran", isinya = transaksi.jumlah_pembayaran)
+            DetailTski(judul = "Jumlah Tiket yang dibeli", isinya = transaksi.jumlah_tiket)
         }
+
+    }
 }
+
 
 @Composable
 fun DetailTski(
@@ -164,13 +186,13 @@ fun DetailTski(
         Text(
             text = "$judul : ",
             fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Gray
+            fontWeight = FontWeight.SemiBold,
+            color = Color.Black
         )
         Text(
             text = isinya,
             fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.SemiBold
         )
     }
 }
