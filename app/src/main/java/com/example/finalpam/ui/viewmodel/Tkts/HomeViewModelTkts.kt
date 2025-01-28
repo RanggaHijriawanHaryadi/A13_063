@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import coil.network.HttpException
 import com.example.finalpam.entitas.Event
 import com.example.finalpam.entitas.Peserta
+import com.example.finalpam.entitas.Tikets
 import com.example.finalpam.repository.EventRepository
 import com.example.finalpam.repository.PesertaRepository
 import com.example.finalpam.repository.TiketsRepository
@@ -16,11 +17,14 @@ import java.io.IOException
 
 
 
+
 class HomeViewModelTkts (
     private val tkt: TiketsRepository,
     private val peserta: PesertaRepository,
     private val event: EventRepository
 ):ViewModel(){
+    var tktsUIState: HomeUiTikesState by mutableStateOf(HomeUiTikesState.Loading)
+        private set
 
     // Dropdowm
     var pstrList by mutableStateOf<List<Peserta>>(emptyList())
