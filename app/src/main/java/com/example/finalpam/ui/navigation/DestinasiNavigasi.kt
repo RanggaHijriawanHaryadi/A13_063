@@ -58,7 +58,7 @@ object DestinasiUpdateEvnt: DestinasiNavigasi {
 // Halaman Home Tikets
 object DestinasiHomeTkts: DestinasiNavigasi{
     override val route = "Tikets"
-    override val titleRes = "Halaman Tikets"
+    override val titleRes = "Halaman Tiket"
 }
 object DestinasiInsertTkts: DestinasiNavigasi{
     override val route = "Insert tikets"
